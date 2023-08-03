@@ -27,6 +27,12 @@ variable "cname_records" {
   default     = {}
 }
 
+variable "ns_records" {
+  description = "Map of NS records. Keys are the record names, values are String or String[] containing record data."
+  type        = any
+  default     = {}
+}
+
 variable "use_delegation_set" {
   description = "Turn off to create/maintain a zone using randomized DNS servers. Mainly useful if you are importing an existing route53 zone, and you don't want it re-created with new primary DNS hosts."
   type        = bool

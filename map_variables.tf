@@ -38,6 +38,16 @@ locals {
       }
     ]
   ]) : "${i.zone}::${i.name}" => i }
+
+  ns_records_map = { for i in flatten([
+    for zone in var.zones : [
+      for name, targets in var.ns_records : {
+        zone    = zone,
+        name    = name,
+        targets = flatten([targets])
+      }
+    ]
+  ]) : "${i.zone}::${i.name}" => i }
 }
 
 output "debug" {
@@ -46,5 +56,6 @@ output "debug" {
     cname_records_map = local.cname_records_map
     mx_records_map    = local.mx_records_map
     txt_records_map   = local.txt_records_map
+    ns_records_map    = local.ns_records_map
   }
 }

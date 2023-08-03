@@ -51,3 +51,13 @@ resource "aws_route53_record" "cname" {
   ttl             = 300
   allow_overwrite = var.allow_overwrite
 }
+
+resource "aws_route53_record" "ns" {
+  for_each        = local.ns_records_map
+  zone_id         = aws_route53_zone.zone[each.value.zone].zone_id
+  type            = "NS"
+  name            = each.value.name
+  records         = each.value.targets
+  ttl             = 300
+  allow_overwrite = var.allow_overwrite
+}
