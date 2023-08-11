@@ -1,9 +1,10 @@
-resource "aws_route53_delegation_set" "delegation_set" {
-  count = var.use_delegation_set ? 1 : 0
+locals {
+  manage_delegation_set = var.manage_delegation_set && var.delegation_set_id == ""
+  delegation_set_id = (var.delegation_set_id != "") ? var.delegation_set_id : (var.manage_delegation_set ? aws_route53_delegation_set.delegation_set[0].id : "")
 }
 
-locals {
-  delegation_set_id = var.use_delegation_set ? aws_route53_delegation_set.delegation_set[0].id : ""
+resource "aws_route53_delegation_set" "delegation_set" {
+  count = local.manage_delegation_set ? 1 : 0
 }
 
 resource "aws_route53_zone" "zone" {
