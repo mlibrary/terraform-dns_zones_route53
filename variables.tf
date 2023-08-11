@@ -33,10 +33,16 @@ variable "ns_records" {
   default     = {}
 }
 
-variable "use_delegation_set" {
-  description = "Turn off to create/maintain a zone using randomized DNS servers. Mainly useful if you are importing an existing route53 zone, and you don't want it re-created with new primary DNS hosts."
+variable "manage_delegation_set" {
+  description = "Set to false to create/maintain a zone using randomized DNS servers. Mainly useful if you are importing an existing route53 zone, and you don't want it re-created with new primary DNS hosts. Ignored if delegation_set_id is set."
   type        = bool
   default     = true
+}
+
+variable "delegation_set_id" {
+  description = "Use this delegation set. Useful if you are using multiple copies of this module and they need to share a delegation set. Causes manage_delegation_set to be ignored."
+  type        = string
+  default     = ""
 }
 
 variable "allow_overwrite" {
