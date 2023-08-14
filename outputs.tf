@@ -1,5 +1,5 @@
 output "name_servers" {
-  value = var.manage_delegation_set ? aws_route53_delegation_set.delegation_set[0].name_servers : ["Reusable delegation set disabled for this module. See module.name_of_module.zone or AWS console for NS records."]
+  value = local.manage_delegation_set ? aws_route53_delegation_set.delegation_set[0].name_servers : ["Reusable delegation set disabled for this module. See module.name_of_module.zone or AWS console for NS records."]
 }
 
 output "zone" { value = aws_route53_zone.zone }
