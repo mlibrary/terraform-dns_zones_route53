@@ -19,7 +19,7 @@ resource "aws_route53_record" "a" {
   type            = "A"
   name            = each.value.name
   records         = each.value.targets
-  ttl             = 300 # ttls correspond to defaults in AWS console
+  ttl             = var.a_ttl
   allow_overwrite = var.allow_overwrite
 }
 
@@ -29,7 +29,7 @@ resource "aws_route53_record" "mx" {
   type            = "MX"
   name            = each.value.name
   records         = each.value.targets
-  ttl             = 86400
+  ttl             = var.mx_ttl
   allow_overwrite = var.allow_overwrite
 }
 
@@ -39,7 +39,7 @@ resource "aws_route53_record" "txt" {
   type            = "TXT"
   name            = each.value.name
   records         = each.value.targets
-  ttl             = 300
+  ttl             = var.txt_ttl
   allow_overwrite = var.allow_overwrite
 }
 
@@ -49,7 +49,7 @@ resource "aws_route53_record" "cname" {
   type            = "CNAME"
   name            = each.value.name
   records         = each.value.targets
-  ttl             = 300
+  ttl             = var.cname_ttl
   allow_overwrite = var.allow_overwrite
 }
 
@@ -59,6 +59,6 @@ resource "aws_route53_record" "ns" {
   type            = "NS"
   name            = each.value.name
   records         = each.value.targets
-  ttl             = 300
+  ttl             = var.ns_ttl
   allow_overwrite = var.allow_overwrite
 }
