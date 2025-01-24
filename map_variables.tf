@@ -9,6 +9,16 @@ locals {
     ]
   ]) : "${i.zone}::${i.name}" => i }
 
+  alias_records_map = { for i in flatten([
+    for zone in var.zones : [
+      for name, target in var.alias_records : {
+        zone   = zone,
+        name   = name,
+        target = target,
+      }
+    ]
+  ]) : "${i.zone}::${i.name}" => i }
+
   cname_records_map = { for i in flatten([
     for zone in var.zones : [
       for name, targets in var.cname_records : {

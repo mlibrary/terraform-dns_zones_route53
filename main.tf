@@ -23,6 +23,20 @@ resource "aws_route53_record" "a" {
   allow_overwrite = var.allow_overwrite
 }
 
+resource "aws_route53_record" "alias" {
+  for_each        = local.alias_records_map
+  zone_id         = aws_route53_zone.zone[each.value.zone].zone_id
+  type            = "A"
+  name            = each.value.name
+  allow_overwrite = var.allow_overwrite
+
+  alias {
+    name          = each.value.target.dns_name
+    zone_id       = each.value.target.zone_id
+    evaluate_target_health = true
+  }
+}
+
 resource "aws_route53_record" "mx" {
   for_each        = local.mx_records_map
   zone_id         = aws_route53_zone.zone[each.value.zone].zone_id

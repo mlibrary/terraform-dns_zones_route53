@@ -21,6 +21,12 @@ variable "a_records" {
   default     = {}
 }
 
+variable "alias_records" {
+  description = "Map of Route 53 Alias records. Keys are the record names, value must be an object representing the target, with attributes `.dns_name` and `.zone_id`."
+  type        = any
+  default     = {}
+}
+
 variable "cname_records" {
   description = "Map of CNAME records. Keys are the record names, values are String or String[] containing record data."
   type        = any

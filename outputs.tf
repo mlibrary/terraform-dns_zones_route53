@@ -4,6 +4,7 @@ output "name_servers" {
 
 output "zone" { value = aws_route53_zone.zone }
 output "a" { value = aws_route53_record.a }
+output "alias" { value = aws_route53_record.alias }
 output "mx" { value = aws_route53_record.mx }
 output "txt" { value = aws_route53_record.txt }
 output "cname" { value = aws_route53_record.cname }
